@@ -1,0 +1,30 @@
+parameters:
+    locale: 'en'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{Tests,Kernel.php}'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    SearchApi:
+        class: Github\Client
+        factory: 'App\Factory\GithubApiFactory:create'
+        arguments: ['search']
+
+    IssueApi:
+        class: Github\Client
+        factory: 'App\Factory\GithubApiFactory:create'
+        arguments: ['issue']
+
+    App\Service\GithubService:
+        arguments: ['@SearchApi', '@IssueApi']
+        public:  true

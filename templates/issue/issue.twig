@@ -1,0 +1,38 @@
+{% extends '@app/base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        #avatar {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div>
+        <a href="{{ path('issue_list', {'state': issue.state }) }}">{% trans %}<-Back to Issues{% endtrans %}</a>
+        <hr/>
+    </div>
+    <br/>
+    <div>
+        <b>{{ issue.title }}</b> #{{ issue.number }}
+        <br/>
+        {{ issue.state }} <a href="{{ issue.user.url }}">{{ issue.user.login }}</a>
+        {% trans %}opened this issue{% endtrans %} {{ issue.created_at|ago }} - {{ issue.comments }} comments
+        <hr/>
+    </div>
+    <br>
+    <div>
+        {% for comment in comments %}
+            <div>
+                <img id="avatar" src="{{ comment.user.avatar_url }}">
+                <br/>
+                <a href="{{ comment.user.url }}">{{ comment.user.login }}</a>
+                {% trans %}commented{% endtrans %} {{ comment.created_at|ago }}
+                <br/>
+                <hr/>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

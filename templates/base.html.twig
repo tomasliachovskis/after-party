@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Github Issues{% endblock %}</title>
+        <style type="text/css">
+            #logout {
+                float: right;
+                display: inline-block;
+                margin-top: 15px;
+            }
+            #logout, #login {
+                font-size: 16px;
+            }
+            body {
+                padding: 0 50px;
+            }
+            h1 {
+                float: left;
+                display: inline-block;
+                margin: 0;
+            }
+            #clear {
+                clear: both;
+            }
+        </style>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+    <h1>testio<span style="color: #4be446">.</span></h1>
+    {% if app.user %}
+        <a id="logout" href="{{ path('logout') }}"><b>Logout</b></a>
+    {% endif %}
+    <div id="clear"></div>
+    {% block body %}{% endblock %}
+    </body>
+</html>

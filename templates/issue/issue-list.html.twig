@@ -1,0 +1,47 @@
+{% extends '@app/base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .centered {
+            display: inline-block;
+            text-align: center;
+            float: left;
+            margin-left: 40%;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <a class="centered" href="{{ path('issue_list', { 'state': constant('App\\Service\\GitHubService::STATUS_OPEN') }) }}">{% trans %}Open issues count: {% endtrans %}{{ open_issues }}</a>
+    <div id="clear"></div>
+    <a class="centered" href="{{ path('issue_list', { 'state': constant('App\\Service\\GitHubService::STATUS_CLOSED') }) }}">{% trans %}Closed issues count: {% endtrans %}{{ closed_issues }}</a>
+    <div id="clear"></div>
+    
+    <hr/>
+    {% for issue in issues.items %}
+        <div>
+            State: {{ issue.state }} |
+            <a href="
+             {{ path('issue', {
+                user: issue.user.login,
+                repository: issue.repository_url|split('/')|last,
+                issueId: issue.number
+            }) }} ">
+                {{ issue.title }}
+            </a>
+            {% for label in issue.labels %}
+                <span style="background-color:#{{ label.color }}">{{ label.name }}</span>
+            {% endfor %}
+            {% trans %}Comments:{% endtrans %}
+            {{ issue.comments }}
+            <br/>
+            #{{ issue.number }} opened {{ issue.created_at|ago }} by <a
+                    href="{{ issue.user.url }}">{{ issue.user.login }}</a>
+            <hr/>
+        </div>
+    {% endfor %}
+    
+    <div class="navigation">
+        {{ knp_pagination_render(issues) }}
+    </div>
+{% endblock %}

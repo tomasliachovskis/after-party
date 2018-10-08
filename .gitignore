@@ -1,0 +1,8 @@
+/.env
+/public/bundles/
+/var/
+/vendor/
+/.web-server-pid
+.phpunit
+/phpunit.xml
+/.idea
