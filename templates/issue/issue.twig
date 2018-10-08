@@ -1,5 +1,9 @@
 {% extends '@app/base.html.twig' %}
 
+{% block title %}
+    Github Issue - {{ issue.title }} #{{ issue.number }}
+{% endblock %}
+
 {% block stylesheets %}
     <style>
         #avatar {
