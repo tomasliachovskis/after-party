@@ -24,6 +24,7 @@ class GithubApiFactory
 
     /**
      * @param string $apiType
+     *
      * @return ApiInterface
      */
     public function create($apiType): ApiInterface

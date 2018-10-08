@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class IssueController
+ * Class IssueController.
  */
 class IssueController extends Controller
 {
@@ -20,6 +20,7 @@ class IssueController extends Controller
 
     /**
      * IssueController constructor.
+     *
      * @param GithubService $githubService
      */
     public function __construct(GithubService $githubService)
@@ -34,9 +35,11 @@ class IssueController extends Controller
      *     defaults={"state"="open", "page"=1},
      *     name="issue_list"
      * )
+     *
      * @param string                $state
      * @param int                   $page
      * @param TokenStorageInterface $tokenStorage
+     *
      * @return Response
      */
     public function issuesListAction(string $state, int $page, TokenStorageInterface $tokenStorage)
@@ -47,7 +50,7 @@ class IssueController extends Controller
         $openCount = $this->githubService->getIssueCount(GithubService::STATUS_OPEN, $user);
         $closedCount = $this->githubService->getIssueCount(GithubService::STATUS_CLOSED, $user);
 
-        $count = $state == GithubService::STATUS_CLOSED ? $closedCount : $openCount;
+        $count = GithubService::STATUS_CLOSED == $state ? $closedCount : $openCount;
 
         $pagination = $paginator->paginate(
             $issues['items'],
@@ -75,9 +78,11 @@ class IssueController extends Controller
      *     methods={"GET"},
      *     name="issue"
      * )
+     *
      * @param string $user
      * @param string $repository
      * @param string $issueId
+     *
      * @return Response
      */
     public function issueAction(string $user, string $repository, string $issueId)

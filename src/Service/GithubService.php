@@ -24,6 +24,7 @@ class GithubService
 
     /**
      * GithubService constructor.
+     *
      * @param Search $githubSearchApi
      * @param Issue  $githubIssueApi
      */
@@ -39,6 +40,7 @@ class GithubService
      * @param string $state
      * @param int    $page
      * @param string $user
+     *
      * @return array
      */
     public function getIssues(string $state, int $page, string $user): array
@@ -54,6 +56,7 @@ class GithubService
     /**
      * @param string $status
      * @param string $user
+     *
      * @return int
      */
     public function getIssueCount(string $status, string $user): int
@@ -72,6 +75,7 @@ class GithubService
      * @param string $user
      * @param string $repository
      * @param string $number
+     *
      * @return array
      */
     public function getIssue(string $user, string $repository, string $number): array
@@ -83,6 +87,7 @@ class GithubService
      * @param string $user
      * @param string $repository
      * @param string $number
+     *
      * @return array
      */
     public function getComments(string $user, string $repository, string $number): array
