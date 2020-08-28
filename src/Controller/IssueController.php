@@ -50,7 +50,7 @@ class IssueController extends Controller
         $openCount = $this->githubService->getIssueCount(GithubService::STATUS_OPEN, $user);
         $closedCount = $this->githubService->getIssueCount(GithubService::STATUS_CLOSED, $user);
 
-        $count = GithubService::STATUS_CLOSED == $state ? $closedCount : $openCount;
+        $count = (int) GithubService::STATUS_CLOSED == $state ? $closedCount : $openCount;
 
         $pagination = $paginator->paginate(
             $issues['items'],
@@ -89,6 +89,8 @@ class IssueController extends Controller
     {
         $issue = $this->githubService->getIssue($user, $repository, $issueId);
         $comments = $this->githubService->getComments($user, $repository, $issueId);
+
+        asort($comments);
 
         return $this->render(
             '@app/issue/issue.twig',
